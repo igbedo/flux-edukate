@@ -1,0 +1,13 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: edukate-gitops
+  namespace: flux-system
+spec:
+  interval: 30s
+  ref:
+    branch: main
+  url: ssh://git@github.com/igbedo/edukate-gitops
+  secretRef:
+    name: deploy-to-edukate
