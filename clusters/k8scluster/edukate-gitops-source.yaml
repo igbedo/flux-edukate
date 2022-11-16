@@ -8,6 +8,6 @@ spec:
   interval: 30s
   ref:
     branch: main
-  url: git@github.com/igbedo/edukate-gitops
+  url: ssh://git@github.com/igbedo/edukate-gitops
   secretRef:
     name: deploy-to-edukate
