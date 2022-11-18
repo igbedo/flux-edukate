@@ -1,0 +1,50 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: edukate-gitops
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: edukate-gitops
+  filterTags:
+    pattern: "^main-[a-f0-9]+-(?P<ts>[0-9]+)"
+    extract: "$ts"
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: edukate-gitops
+  namespace: flux-system
+spec:
+  image: igbedo/edukate
+  interval: 1m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: edukate-gitops
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: edukate-gitops 
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+        Automated image updated by Flux
+        [ci skip]
+    push:
+      branch: main
+  update:
+    path: ./kustomize
+    strategy: Setters
