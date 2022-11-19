@@ -10,4 +10,4 @@ spec:
     branch: main
   url: ssh://git@github.com/igbedo/edukate-gitops
   secretRef:
-    name: edukate-gitops
+    name: deploy-to-edukate
