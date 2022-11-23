@@ -1,0 +1,2 @@
+PASSWORD="password"
+gitops create dashboard ww-gitops --password=$PASSWORD --export > weave-gitops-dashboard.yaml
